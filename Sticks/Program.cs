@@ -10,8 +10,8 @@ namespace Sticks
     {
         public winlose(int a, int b)
         {
-            wins = a;
-            losses = b;
+            wins = b;
+            losses = a;
         }
         public int wins;
         public int losses;
