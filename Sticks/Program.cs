@@ -13,6 +13,7 @@ namespace Sticks
             wins = a;
             losses = b;
         }
+
         public int wins;
         public int losses;
     }
@@ -24,6 +25,7 @@ namespace Sticks
             occurences = 0;
             indexes = new List<int>();
         }
+
         public int occurences;
         public List<int> indexes;
     }
