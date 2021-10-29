@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Sticks
 {
-    struct winlose
+    struct WinLose
     {
-        public winlose(int a, int b)
+        public WinLose(int a, int b)
         {
             wins = a;
             losses = b;
@@ -18,9 +18,9 @@ namespace Sticks
         public int losses;
     }
 
-    struct symmetry
+    struct Symmetry
     {
-        public symmetry(int a)
+        public Symmetry(int a)
         {
             occurences = 0;
             indexes = new List<int>();
@@ -146,7 +146,7 @@ namespace Sticks
                         Array.Copy(numberArray, numTards,numberArray.Length);
                         int sumTards = sumSticks;
                         
-                        winlose AiResponse = SmartAi(numTards, sumTards);
+                        WinLose AiResponse = SmartAi(numTards, sumTards);
                         numberArray[AiResponse.wins] -= AiResponse.losses;
                         sumSticks -= AiResponse.losses;
                         turn++;
@@ -180,7 +180,7 @@ namespace Sticks
             }
         }
 
-        static winlose SmartAi(int[] numberArray, int sum)
+        static WinLose SmartAi(int[] numberArray, int sum)
         {
             int numRows = numberRows(numberArray);
             int num = 0;
@@ -215,32 +215,32 @@ namespace Sticks
                 {
                     if (numberArray[i] > 0)
                     {
-                        return new winlose(i, numberArray[i]);
+                        return new WinLose(i, numberArray[i]);
                     }
                 }
-                    return new winlose(row, numberArray[row]);
+                    return new WinLose(row, numberArray[row]);
             }
             
             if (num == numRows - 1)
             {
                 if ((numRows) % 2 == 0)
                 {
-                    return new winlose(row, numberArray[row]);
+                    return new WinLose(row, numberArray[row]);
                 }
 
                 else 
                 {
-                    return new winlose(row, numberArray[row] - 1);
+                    return new WinLose(row, numberArray[row] - 1);
                 }
             }
 
             else if (numRows % 2 == 0)
             { 
-                symmetry[] pairArray = new symmetry[2*numberArray.Length + 1];
+                Symmetry[] pairArray = new Symmetry[2*numberArray.Length + 1];
                 
                 for(int i = 0; i < numberArray.Length; i++)
                 {
-                    pairArray[numberArray[i]] = new symmetry(1);
+                    pairArray[numberArray[i]] = new Symmetry(1);
                 }
                 
                 for (int i = 0; i < numberArray.Length; i++)
@@ -293,23 +293,23 @@ namespace Sticks
                 {
                     if (numberArray[firstfucked] > numberArray[secondfucked])
                     {
-                        return new winlose(firstfucked, numberArray[firstfucked]-numberArray[secondfucked]);
+                        return new WinLose(firstfucked, numberArray[firstfucked]-numberArray[secondfucked]);
                     }
                     
                     else
                     {
-                        return new winlose(secondfucked, numberArray[secondfucked] - numberArray[firstfucked]);
+                        return new WinLose(secondfucked, numberArray[secondfucked] - numberArray[firstfucked]);
                     }
                 }
             }
             
             if (numRows % 2 == 1)
             {
-                symmetry[] pairArray = new symmetry[2*numberArray.Length + 1];
+                Symmetry[] pairArray = new Symmetry[2*numberArray.Length + 1];
 
                 for (int i = 0; i < pairArray.Length; i++)
                 {
-                    pairArray[i] = new symmetry(1);
+                    pairArray[i] = new Symmetry(1);
                 }
 
                     for (int i = 0; i < numberArray.Length; i++)
@@ -346,7 +346,7 @@ namespace Sticks
                 
                 if (count == 1)
                 {
-                    return new winlose(firstfucked, numberArray[firstfucked]);
+                    return new WinLose(firstfucked, numberArray[firstfucked]);
                 }
             }
 
@@ -380,14 +380,14 @@ namespace Sticks
                         {
                             if ((numberArray[indexes[2]] - numberArray[indexes[1]]) > gcd)
                             {
-                                return new winlose (indexes[2], (numberArray[indexes[2]] - (numberArray[indexes[1]] - gcd)));
+                                return new WinLose (indexes[2], (numberArray[indexes[2]] - (numberArray[indexes[1]] - gcd)));
                             }
                         }
                         else
                         {
                             if (numberArray[indexes[2]] > (numberArray[indexes[0]]-gcd))
                             {
-                                return new winlose (indexes[2], numberArray[indexes[2]]-(numberArray[indexes[0]]-gcd));
+                                return new WinLose (indexes[2], numberArray[indexes[2]]-(numberArray[indexes[0]]-gcd));
                             }
                         }
                     }
@@ -400,14 +400,14 @@ namespace Sticks
                         {
                             if ((numberArray[indexes[0]] - numberArray[indexes[2]]) > gcd)
                             {
-                                return new winlose (indexes[0], (numberArray[indexes[0]] - (numberArray[indexes[2]] - gcd)));
+                                return new WinLose (indexes[0], (numberArray[indexes[0]] - (numberArray[indexes[2]] - gcd)));
                             }
                         }
                         else
                         {
                             if (numberArray[indexes[0]] > (numberArray[indexes[1]]-gcd))
                             {
-                                return new winlose (indexes[0], numberArray[indexes[0]]-(numberArray[indexes[1]]-gcd));
+                                return new WinLose (indexes[0], numberArray[indexes[0]]-(numberArray[indexes[1]]-gcd));
                             }
                         }
                     }
@@ -420,14 +420,14 @@ namespace Sticks
                         {
                             if ((numberArray[indexes[1]] - numberArray[indexes[0]]) > gcd)
                             {
-                                return new winlose (indexes[1], (numberArray[indexes[1]] - (numberArray[indexes[0]] - gcd)));
+                                return new WinLose (indexes[1], (numberArray[indexes[1]] - (numberArray[indexes[0]] - gcd)));
                             }
                         }
                         else
                         {
                             if (numberArray[indexes[1]] > (numberArray[indexes[2]]-gcd))
                             {
-                                return new winlose (indexes[1], numberArray[indexes[1]]-(numberArray[indexes[2]]-gcd));
+                                return new WinLose (indexes[1], numberArray[indexes[1]]-(numberArray[indexes[2]]-gcd));
                             }
                         }
                     }
@@ -442,7 +442,7 @@ namespace Sticks
                         {
                             if ((numberArray[indexes[2]] - numberArray[indexes[0]]) >= gcd)
                             {
-                                return new winlose(indexes[2], (numberArray[indexes[2]] - numberArray[indexes[0]] - gcd));
+                                return new WinLose(indexes[2], (numberArray[indexes[2]] - numberArray[indexes[0]] - gcd));
                             }
                         }
                     }
@@ -455,7 +455,7 @@ namespace Sticks
                         {
                             if ((numberArray[indexes[0]] - numberArray[indexes[2]]) >= gcd)
                             {
-                                return new winlose(indexes[0], (numberArray[indexes[0]] - numberArray[indexes[2]] - gcd));
+                                return new WinLose(indexes[0], (numberArray[indexes[0]] - numberArray[indexes[2]] - gcd));
                             }
                         }
                     }
@@ -468,7 +468,7 @@ namespace Sticks
                         {
                             if ((numberArray[indexes[1]] - numberArray[indexes[0]]) >= gcd)
                             {
-                                return new winlose(indexes[1], (numberArray[indexes[1]] - numberArray[indexes[0]] - gcd));
+                                return new WinLose(indexes[1], (numberArray[indexes[1]] - numberArray[indexes[0]] - gcd));
                             }
                         }
                     }
@@ -499,7 +499,7 @@ namespace Sticks
                             Array.Sort(temp);
                             if (temp[2] - temp[0] == 2 && temp[1] - temp[0] == 1)
                             {
-                                return new winlose(indexes[i], numberArray[indexes[i]]);
+                                return new WinLose(indexes[i], numberArray[indexes[i]]);
                             }
                         }
                         else if (i == 1)
@@ -510,7 +510,7 @@ namespace Sticks
                             Array.Sort(temp);
                             if (temp[2] - temp[0] == 2 && temp[1] - temp[0] == 1)
                             {
-                                return new winlose(indexes[i], numberArray[indexes[i]]);
+                                return new WinLose(indexes[i], numberArray[indexes[i]]);
                             }
                         }
                         else if (i == 2)
@@ -521,7 +521,7 @@ namespace Sticks
                             Array.Sort(temp);
                             if (temp[2] - temp[0] == 2 && temp[1] - temp[0] == 1)
                             {
-                                return new winlose(indexes[i], numberArray[indexes[i]]);
+                                return new WinLose(indexes[i], numberArray[indexes[i]]);
                             }
                         }
                         else
@@ -532,7 +532,7 @@ namespace Sticks
                             Array.Sort(temp);
                             if (temp[2] - temp[0] == 2 && temp[1] - temp[0] == 1)
                             {
-                                return new winlose(indexes[i], numberArray[indexes[i]]);
+                                return new WinLose(indexes[i], numberArray[indexes[i]]);
                             }
                         }
 
@@ -586,11 +586,11 @@ namespace Sticks
 
                 if (sumSticks % 2 == 0)
                 {
-                    return new winlose(bestI, 2);
+                    return new WinLose(bestI, 2);
                 }
                 else
                 {
-                    return new winlose(bestI, 1);
+                    return new WinLose(bestI, 1);
                 }
             }
         }
